@@ -10,7 +10,7 @@ import io
 import csv
 
 
-class StringGenerator(object):
+class BSE(object):
 
     def __init__(self):
         self.browser = httplib2.Http('.cache')
@@ -179,4 +179,4 @@ if __name__ == '__main__':
         'server.socket_port': int(os.environ.get('PORT', 5000)),
     }
     }
-    cherrypy.quickstart(StringGenerator()),'/',config=config)
+    cherrypy.quickstart(BSE(),'/',config=config)
