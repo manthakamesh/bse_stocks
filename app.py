@@ -171,9 +171,7 @@ class BSE(object):
         else:
             #If file exists for today's date, get the html and display it
             return self.html_generator()
-    @cherrypy.expose
-    def shutdown(self):
-        cherrypy.engine.exit()
+
 
 if __name__ == '__main__':
     config = {
