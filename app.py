@@ -134,7 +134,7 @@ class BSE(object):
 
                 html_out += '<tr>' + '<td>' + sc_code + '</td>' + '<td>' + sc_name + '</td>' + '<td>' + open_value + '</td>' + '<td>' + high + '</td>' + '<td>' + low + '</td>' + '<td>' + close + '</td>' + '</tr>'
             except:
-                html_out+="<h2>No record exists related to your search</h2>"
+                html_out+="<h3>No record exists related to your search</h3>"
         # If user hasn't searched anything then display top 10 records
         else:
             for i in range(1,11):
