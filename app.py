@@ -126,22 +126,22 @@ class BSE(object):
         if len(search_test)>0:
             sc_code = r.hgetall(search_test.replace(" ",''))['SC_CODE']
             sc_name = r.hgetall(search_test.replace(" ",''))['SC_NAME']
-            open = r.hgetall(search_test.replace(" ",''))['OPEN']
+            open_value = r.hgetall(search_test.replace(" ",''))['OPEN']
             high = r.hgetall(search_test.replace(" ",''))['HIGH']
             low = r.hgetall(search_test.replace(" ",''))['LOW']
             close = r.hgetall(search_test.replace(" ",''))['CLOSE']
 
-            html_out += '<tr>' + '<td>' + sc_code + '</td>' + '<td>' + sc_name + '</td>' + '<td>' + open + '</td>' + '<td>' + high + '</td>' + '<td>' + low + '</td>' + '<td>' + close + '</td>' + '</tr>'
+            html_out += '<tr>' + '<td>' + sc_code + '</td>' + '<td>' + sc_name + '</td>' + '<td>' + open_value + '</td>' + '<td>' + high + '</td>' + '<td>' + low + '</td>' + '<td>' + close + '</td>' + '</tr>'
         # If user hasn't searched anything then display top 10 records
         else:
             for i in range(1,11):
                 sc_code=r.hgetall("stock"+str(i))['SC_CODE']
                 sc_name=r.hgetall("stock"+str(i))['SC_NAME']
-                open = r.hgetall("stock" + str(i))['OPEN']
+                open_value = r.hgetall("stock" + str(i))['OPEN']
                 high = r.hgetall("stock" + str(i))['HIGH']
                 low = r.hgetall("stock" + str(i))['LOW']
                 close = r.hgetall("stock" + str(i))['CLOSE']
-                html_out+='<tr>'+'<td>'+sc_code+'</td>'+'<td>'+sc_name+'</td>'+'<td>'+open+'</td>'+'<td>'+high+'</td>'+'<td>'+low+'</td>'+'<td>'+close+'</td>'+'</tr>'
+                html_out+='<tr>'+'<td>'+sc_code+'</td>'+'<td>'+sc_name+'</td>'+'<td>'+open_value+'</td>'+'<td>'+high+'</td>'+'<td>'+low+'</td>'+'<td>'+close+'</td>'+'</tr>'
         html_out+='''</table></body></html>'''
         return html_out
 
