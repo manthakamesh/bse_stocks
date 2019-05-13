@@ -109,7 +109,7 @@ class BSE(object):
           <!-- Optional theme -->
           <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"></head>
           <body>"""
-        if last_upload_date==datetime.datetime.today() :
+        if last_upload_date==datetime.datetime.today().date() :
             html_out+='<h1>List of top 10 stocks today</h1>'
         else:
 
@@ -124,14 +124,17 @@ class BSE(object):
           '''
         #search_test gets value from the html form(search box). If its length>0 then display the user requested stock
         if len(search_test)>0:
-            sc_code = r.hgetall(search_test.replace(" ",''))['SC_CODE']
-            sc_name = r.hgetall(search_test.replace(" ",''))['SC_NAME']
-            open_value = r.hgetall(search_test.replace(" ",''))['OPEN']
-            high = r.hgetall(search_test.replace(" ",''))['HIGH']
-            low = r.hgetall(search_test.replace(" ",''))['LOW']
-            close = r.hgetall(search_test.replace(" ",''))['CLOSE']
+            try:
+                sc_code = r.hgetall(search_test.replace(" ",''))['SC_CODE']
+                sc_name = r.hgetall(search_test.replace(" ",''))['SC_NAME']
+                open_value = r.hgetall(search_test.replace(" ",''))['OPEN']
+                high = r.hgetall(search_test.replace(" ",''))['HIGH']
+                low = r.hgetall(search_test.replace(" ",''))['LOW']
+                close = r.hgetall(search_test.replace(" ",''))['CLOSE']
 
-            html_out += '<tr>' + '<td>' + sc_code + '</td>' + '<td>' + sc_name + '</td>' + '<td>' + open_value + '</td>' + '<td>' + high + '</td>' + '<td>' + low + '</td>' + '<td>' + close + '</td>' + '</tr>'
+                html_out += '<tr>' + '<td>' + sc_code + '</td>' + '<td>' + sc_name + '</td>' + '<td>' + open_value + '</td>' + '<td>' + high + '</td>' + '<td>' + low + '</td>' + '<td>' + close + '</td>' + '</tr>'
+            except:
+                html_out+="<h1>No record exists</h1>"
         # If user hasn't searched anything then display top 10 records
         else:
             for i in range(1,11):
