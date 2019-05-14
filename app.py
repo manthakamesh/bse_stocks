@@ -45,7 +45,7 @@ class BSE(object):
             data = csv.reader(f)
             for row in data:
                 stock_dict={'SC_CODE': row[0], 'SC_NAME': row[1],'OPEN':row[4],'HIGH':row[5],'LOW':row[6],'CLOSE':row[7]}
-                r.hmset(row[1].replace(" ",''), stock_dict)
+                r.hmset(row[1].replace(" ",'').strip(), stock_dict)
 
         with open(filename, 'rt')as f:
             data = csv.reader(f)
@@ -125,12 +125,12 @@ class BSE(object):
         #search_test gets value from the html form(search box). If its length>0 then display the user requested stock
         if len(search_test)>0:
             try:
-                sc_code = r.hgetall(search_test.replace(" ",''))['SC_CODE']
-                sc_name = r.hgetall(search_test.replace(" ",''))['SC_NAME']
-                open_value = r.hgetall(search_test.replace(" ",''))['OPEN']
-                high = r.hgetall(search_test.replace(" ",''))['HIGH']
-                low = r.hgetall(search_test.replace(" ",''))['LOW']
-                close = r.hgetall(search_test.replace(" ",''))['CLOSE']
+                sc_code = r.hgetall(search_test.replace(" ",'').strip())['SC_CODE']
+                sc_name = r.hgetall(search_test.replace(" ",'').strip())['SC_NAME']
+                open_value = r.hgetall(search_test.replace(" ",'').strip())['OPEN']
+                high = r.hgetall(search_test.replace(" ",'').strip())['HIGH']
+                low = r.hgetall(search_test.replace(" ",'').strip())['LOW']
+                close = r.hgetall(search_test.replace(" ",'').strip())['CLOSE']
 
                 html_out += '<tr>' + '<td>' + sc_code + '</td>' + '<td>' + sc_name + '</td>' + '<td>' + open_value + '</td>' + '<td>' + high + '</td>' + '<td>' + low + '</td>' + '<td>' + close + '</td>' + '</tr>'
             except:
